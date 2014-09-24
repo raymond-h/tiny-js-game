@@ -11,6 +11,8 @@ var counter = 0;
 var score = 0;
 var highscore = 0;
 
+var spawnId;
+
 function main() {
 	init();
 	
@@ -21,14 +23,7 @@ function main() {
 		setTimeout(tick, 1000/60);
 	}
 	
-	var spawnNewEnemy = function() {
-		addEnemy();
-	
-		setTimeout(spawnNewEnemy, 1000 * 2 - score * 20);
-	}
-	
 	tick();
-	setTimeout(spawnNewEnemy, 1000 * 3);
 }
 
 function init() {
@@ -43,6 +38,11 @@ function init() {
 }
 
 function startGame() {
+	if(spawnId) {
+		clearTimeout(spawnId);
+	}
+	spawnId = setTimeout(spawnNewEnemy, 1000 * 3);
+
 	counter = 0;
 	score = 0;
 	player.x = gameScreen.w / 2;
@@ -52,6 +52,12 @@ function startGame() {
 	for(var i = 0; i < 3; i++) {
 		addEnemy();
 	}
+}
+
+function spawnNewEnemy() {
+	addEnemy();
+
+	spawnId = setTimeout(spawnNewEnemy, 1000 * 2 - score * 20);
 }
 
 function addEnemy() {
