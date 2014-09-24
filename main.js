@@ -1,7 +1,7 @@
 var canvas;
 var ctx;
 
-var screen;
+var gameScreen;
 var player = { x: 0, y: 0 };
 var enemies = [];
 
@@ -38,15 +38,15 @@ function init() {
 	$(document).keydown(keyhandler);
 	$(document).keyup(keyhandler);
 	
-	screen = { w: canvas.width, h: canvas.height };
+	gameScreen = { w: canvas.width, h: canvas.height };
 	startGame();
 }
 
 function startGame() {
 	counter = 0;
 	score = 0;
-	player.x = screen.w / 2;
-	player.y = screen.h / 2;
+	player.x = gameScreen.w / 2;
+	player.y = gameScreen.h / 2;
 	
 	enemies = [];
 	for(var i = 0; i < 3; i++) {
@@ -57,8 +57,8 @@ function startGame() {
 function addEnemy() {
 	function randomPos() {
 		return {
-			x: Math.random()*screen.w,
-			y: Math.random()*screen.h
+			x: Math.random()*gameScreen.w,
+			y: Math.random()*gameScreen.h
 		};
 	}
 	
@@ -102,8 +102,8 @@ function logic() {
 	if(keys.up) player.y -= 5;
 	if(keys.down) player.y += 5;
 	
-	player.x = Math.max(0, Math.min(player.x, screen.w));
-	player.y = Math.max(0, Math.min(player.y, screen.h));
+	player.x = Math.max(0, Math.min(player.x, gameScreen.w));
+	player.y = Math.max(0, Math.min(player.y, gameScreen.h));
 	
 	enemyLogic();
 	hitEnemy();
@@ -132,7 +132,7 @@ function hitEnemy() {
 
 function render() {
 	ctx.fillStyle = 'black';
-	ctx.fillRect(0, 0, screen.w, screen.h);
+	ctx.fillRect(0, 0, gameScreen.w, gameScreen.h);
 	
 	updateScore();
 	renderPlayer();
