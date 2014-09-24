@@ -24,7 +24,7 @@ function main() {
 	var spawnNewEnemy = function() {
 		addEnemy();
 	
-		setTimeout(spawnNewEnemy, 1000 * 3 - enemies.length * 50);
+		setTimeout(spawnNewEnemy, 1000 * 2 - score * 20);
 	}
 	
 	tick();
@@ -62,7 +62,7 @@ function addEnemy() {
 		};
 	}
 	
-	var size = Math.floor(3 + enemies.length / 2);
+	var size = Math.floor(3 + enemies.length / 3);
 	
 	var e;
 	do {
